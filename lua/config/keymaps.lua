@@ -8,3 +8,5 @@ local wk = require("which-key")
 wk.register({
   ["<C-p>"] = { LazyVim.pick("auto"), "Find File" },
 }, { prefix = "" })
+
+map("n", "<leader>/", "<cmd> call esearch#init() <CR>", { desc = "Search Project" })
