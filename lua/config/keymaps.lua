@@ -16,4 +16,7 @@ wk.register({
     name = "buffer",
     b = { "<cmd>Telescope buffers<cr>", "Switch Buffers" },
   },
+  g = {
+    s = { "<cmd>Neogit<cr>", "Status" },
+  },
 }, { prefix = "<leader>" })
