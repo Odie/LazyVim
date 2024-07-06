@@ -1,5 +1,6 @@
 return {
   "hkupty/iron.nvim",
+  lazy = true,
   module = { "iron", "iron.core" },
   config = function()
     require("iron.core").setup({
