@@ -10,3 +10,10 @@ wk.register({
 }, { prefix = "" })
 
 map("n", "<leader>/", "<cmd> call esearch#init() <CR>", { desc = "Search Project" })
+
+wk.register({
+  b = {
+    name = "buffer",
+    b = { "<cmd>Telescope buffers<cr>", "Switch Buffers" },
+  },
+}, { prefix = "<leader>" })
