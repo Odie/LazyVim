@@ -1,7 +1,9 @@
 return {
-  "hkupty/iron.nvim",
+  "Vigemus/iron.nvim",
+  dir = "~/dev/nvim/iron.nvim/",
   lazy = true,
   module = { "iron", "iron.core" },
+  cmd = { "IronRepl" },
   config = function()
     require("iron.core").setup({
       config = {
@@ -14,7 +16,11 @@ return {
           },
 
           -- Use ptpython for the repl
-          python = require("iron.fts.python").ptpython,
+          python = {
+            command = "ptpython",
+            -- We're also intentionally not attaching a `format` function here.
+            -- Sending the data as is is fine.
+          },
         },
         -- How the repl window will be displayed
         -- See below for more information

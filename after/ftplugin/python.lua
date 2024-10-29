@@ -3,31 +3,36 @@ vim.opt_local.tabstop = 4
 
 local core = require("iron.core")
 local ft = vim.bo.filetype
+local PU = require("odie.python_utils")
 
 local wk = require("which-key")
-wk.register({
-	e = {
-		name = 'Eval' ,
-		b = {function() core.send_file(ft) end, 'Eval buffer'},
-		l = {function() core.send_line(ft) end, 'Eval current line'},
-		v = {function() core.visual_send(ft) end, 'Eval selection'},
-	},
+wk.add({
+  buffer = vim.api.nvim_get_current_buf(),
+  {"<localleader>e", desc = "Eval"},
+  {"<localleader>eb", function() core.send_file(ft) end, desc = 'Eval buffer'},
+  -- {"<localleader>el", function() core.send_line() end, desc = 'Eval current line'},
+  {"<localleader>el", function() PU.send_current_expression_to_repl() end, desc = 'Eval current line'},
+  -- {"<localleader>ev", function() core.visual_send() end, desc = 'Eval selection'},
+  {"<localleader>ev", function() core.visual_send() end, desc = 'Eval selection', mode="v"},
 
-	s = {
-		name = 'repl' ,
-		a = {function() core.focus_on(ft) end, 'Switch to repl'},
-		h = {function() core.hide_repl(ft) end, 'Hide'},
-		r = {function() core.repl_restart(ft) end, 'Hard Reset'},
-		q = {function() core.close_repl(ft) end, 'Quit'},
-		c = {function() core.send(nil, string.char(12)) end, 'Clear'},
-		['<cr>'] = {function() core.send(nil, string.char(13)) end, 'cr'},
-		['<space>'] = {function() core.send(nil, string.char(03)) end, 'interrupt'}
-	}
-}, { prefix = "<localleader>", buffer = vim.api.nvim_get_current_buf()})
+  {"<localleader>s", desc = "repl"},
+  {"<localleader>sa", function() core.focus_on(ft) end, desc = 'Switch to repl'},
+  {"<localleader>sh", function() core.hide_repl() end, desc = 'Hide'},
+  {"<localleader>sr",
+    function()
+      core.repl_restart()
+      core.repl_for(ft)
+    end, desc = 'Hard Reset'},
 
-wk.register({
-	e = {
-		v = {function() core.visual_send(ft) end, 'Eval selection'},
-	},
+  {"<localleader>sq", function() core.close_repl() end, desc = 'Quit'},
+  {"<localleader>s<cr>", function() core.send(nil, string.char(13)) end, desc = 'Send carriage-return'},
+  {"<localleader>s<space>", function() core.send(nil, string.char(03)) end, desc = 'Send Interrupt'},
 
-}, { mode = "v", prefix = "<localleader>", buffer = vim.api.nvim_get_current_buf()})
+  {"<localleader>r", desc = "Reload"},
+  {"<localleader>rr", function()
+      core.send(nil, "module_reloader.reload_module_by_path('" .. vim.api.nvim_buf_get_name(0) .. "')\n")
+    end, desc = "Current module"},
+  {"<localleader>rs", function() core.send(nil, "module_reloader.reload_stale_modules()\n") end, desc = "Stale modules" },
+  {"<localleader>mb", function() require("odie.banner").create_banner() end, desc = "Create banner" },
+})
+

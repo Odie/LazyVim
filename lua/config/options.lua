@@ -28,3 +28,12 @@ map("v", "K", ":m '>-3<CR>gv=gv")
 
 -- Enable pasting over current selection
 map("x", "<leader>p", '"_dP')
+
+local u = require("odie.utils")
+
+vim.api.nvim_create_user_command("ResizeToPercentage", function(opts)
+  u.resizeToPercentage(tonumber(opts.args))
+end, { nargs = 1 })
+
+-- Enable vim-sexp for the "fennel" filetype
+vim.g.sexp_filetypes = "fennel"
