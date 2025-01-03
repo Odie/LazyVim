@@ -27,6 +27,8 @@ return {
   },
 
   -- Add s-exp mappings
-  { "tpope/vim-sexp-mappings-for-regular-people" },
-  { "guns/vim-sexp" },
+  {
+    "guns/vim-sexp",
+    ft = { "clojure" },
+  },
 }

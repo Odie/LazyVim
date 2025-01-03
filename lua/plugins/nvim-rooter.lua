@@ -3,7 +3,7 @@ return {
   lazy = false,
   config = function()
     require("nvim-rooter").setup({
-      rooter_patterns = { ".git", ".hg", ".svn", "package.json", "pyproject.toml" },
+      rooter_patterns = { ".git", ".hg", ".svn" },
       update_cwd = true,
       update_focused_file = {
         enable = true,
