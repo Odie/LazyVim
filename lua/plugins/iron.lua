@@ -1,3 +1,13 @@
+local open_code = "\27[200~"
+local close_code = "\27[201~"
+
+local function wrap_with_bracketed_paste_sequence(lines, extras)
+  table.insert(lines, 1, open_code)
+  table.insert(lines, close_code)
+  table.insert(lines, "\n")
+  return lines
+end
+
 return {
   "Vigemus/iron.nvim",
   dir = "~/dev/nvim/iron.nvim/",
@@ -16,10 +26,22 @@ return {
           },
 
           -- Use ptpython for the repl
+          -- python = {
+          --   command = { "ptpython" },
+          --   -- We're also intentionally not attaching a `format` function here.
+          --   -- Sending the data as is is fine.
+          --   --
+          --   format = require("iron.fts.common").bracketed_paste_python,
+          -- },
+
+          -- python = require("iron.fts.python").ptpython,
+          --
+          -- python = {
+          --   command = { "ptpython" },
+          --   format = wrap_with_bracketed_paste_sequence,
+          -- },
           python = {
-            command = "ptpython",
-            -- We're also intentionally not attaching a `format` function here.
-            -- Sending the data as is is fine.
+            command = { "ptpython" },
           },
         },
         -- How the repl window will be displayed

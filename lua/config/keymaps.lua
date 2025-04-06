@@ -2,7 +2,6 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
-local map = vim.keymap.set
 local wk = require("which-key")
 local u = require("odie.utils")
 
@@ -69,7 +68,7 @@ wk.add({
   { "<leader>arc", "<cmd>GpReferenceCurrentFunction<cr>", desc = "Reference current function" },
   { "<leader>arf", "<cmd>GpReferenceCurrentFile<cr>", desc = "Reference current file" },
   {
-    "<leader>ar",
+    "<leader>arr",
     function()
       print("reloading gp...")
       local gp = u.reload_module("gp")
@@ -81,5 +80,11 @@ wk.add({
     desc = "Reload Gp",
   },
 
-  { "<leader>fN", function() print(vim.api.nvim_buf_get_name(0)) end, desc = "Print File Name" },
+  {
+    "<leader>fN",
+    function()
+      print(vim.api.nvim_buf_get_name(0))
+    end,
+    desc = "Print File Name",
+  },
 })
