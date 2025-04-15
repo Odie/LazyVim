@@ -49,14 +49,15 @@ end
 wk.add({
   {
     "<C-p>",
-    function()
-      require("telescope.builtin").find_files()
-    end,
+    -- function()
+    --   require("telescope.builtin").find_files()
+    -- end,
+    "<cmd>FzfLua files<cr>",
     desc = "Find File",
   },
   { "<leader>/", "<cmd> call esearch#init() <CR>", desc = "Search Project" },
 
-  { "<leader>bb", "<cmd>Telescope buffers<cr>", desc = "Switch Buffers" },
+  { "<leader>bb", "<cmd>FzfLua buffers<cr>", desc = "Switch Buffers" },
   { "<leader>gs", "<cmd>Neogit<cr>", desc = "Status" },
 
   { "<leader>a", group = "AI", icon = { icon = "🤖" } },
